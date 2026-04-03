@@ -14,7 +14,7 @@ def get_ai_suggestion(text):
         messages=[
             {
                 "role": "user",
-                "content": f"Below are 25 Caesar cipher decryptions of the same message, each with a different key. Identify which one is readable/meaningful and return ONLY that key number and the decoded message, nothing else.\n\n{text}"
+                "content": f"Below are 51 Caesar cipher brute-force decryptions of an unknown message. Each block starts with 'key-------N'. Analyze all of them and find the ONE that forms a readable, meaningful sentence in any language. Respond ONLY in this exact format: 'Key: X | Message: ...' — no explanation, no preamble.\n\n{text}"
             }
             
         ]
@@ -48,7 +48,7 @@ try:
                         if j in string.digits or j in string.punctuation or j==" " or j == "\n":
                             g.write(j)
                         else:
-                            g.write(letters[(letters.index(j)+i)%52])
+                            g.write(letters[(letters.index(j)-i)%52])
                     g.write("\n")
             # ask ai to found the real msg 
             with open("encrypted_message.txt","r") as m :
